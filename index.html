@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jokes</title>
+    <style>
+        body{
+            background-color: burlywood;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family:system-ui, 'Segoe UI','Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        .apibody{
+            background: whitesmoke;
+            box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.5);
+           max-width: 90%;
+            padding: 2%;
+            margin: auto;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .jokes{
+            font-size: large;
+            font-weight: bolder; 
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+            padding: 10px;
+            border-radius: 5px;
+        } 
+        .btn{
+            background-color: burlywood;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+            font-weight: bolder;
+        }
+        .btn:hover{
+            background-color: rgb(235, 203, 161);
+        }
+        .btn:active{
+            background-color: burlywood;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="apibody">
+            <h1 style="color: burlywood;">JOKES API USING PROMISES</h1>
+            <p class="jokes"></p>
+            <button class="btn">Next Joke</button>
+    </div>
+
+    <script>
+        const jokeApi = "https://icanhazdadjoke.com/"
+        const jokeContainer = document.querySelector('.jokes')
+        const nextJokeButton = document.querySelector('.btn')
+
+        const fetchApi =()=>{
+            fetch(jokeApi, {
+                headers: {
+                    Accept: 'application/json',
+                }
+            })
+            .then((response)=>{
+                return response.json()
+            }).then((jokes)=>{
+                jokeContainer.textContent = jokes.joke
+            }).catch(()=>{
+                jokeContainer.textContent = "Error fetching joke"
+            })
+        }
+
+        fetchApi()
+        nextJokeButton.addEventListener('click',()=>{
+            fetchApi()
+        })
+    </script>
+    
+</body>
+</html>
